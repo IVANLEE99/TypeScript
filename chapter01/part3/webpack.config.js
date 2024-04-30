@@ -1,5 +1,8 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 module.exports = {
+  mode: "production", //Set 'mode' option to 'development' or 'production' to enable defaults for each environment.
   //指定入口
   entry: "./src/index.ts",
   //指定打包文件所在目录
@@ -20,5 +23,16 @@ module.exports = {
         exclude: /node_modules/,
       },
     ],
+  },
+  plugins: [
+    new CleanWebpackPlugin(), //https://www.npmjs.com/package/clean-webpack-plugin
+    // https://www.npmjs.com/package/html-webpack-plugin
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+  ],
+  //用来设置引用模块
+  resolve: {
+    extensions: [".ts", ".js"],
   },
 };
