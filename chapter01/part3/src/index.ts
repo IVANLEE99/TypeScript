@@ -5,3 +5,4 @@ function sum(a: number, b: number): number {
 }
 
 console.log(sum(1, 9), c);
+console.log(Promise);
