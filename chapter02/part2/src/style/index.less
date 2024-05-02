@@ -1,4 +1,61 @@
-body{
-    background-color: aquamarine;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@bg-color: #b7d4a8;
+body {
+  font-size: 20px;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  #main {
+    border: 10px solid black;
+    border-radius: 20px;
+    width: 360px;
+    height: 420px;
+    margin: 100px auto;
     display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background: @bg-color;
+    position: relative;
+    #snake {
+      & > div {
+        width: 10px;
+        height: 10px;
+        background: black;
+        border: 1px solid @bg-color;
+      }
+    }
+
+    #food {
+      width: 10px;
+      height: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-content: space-around;
+      position: absolute;
+      left: 100px;
+      top: 100px;
+      div {
+        width: 4px;
+        height: 4px;
+        background: black;
+        transform: rotate(45deg);
+      }
+    }
+  }
+  #stage {
+    width: 304px;
+    height: 304px;
+    border: 2px solid black;
+  }
+  #score-panel {
+    width: 304px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
