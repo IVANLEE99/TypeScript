@@ -15,6 +15,7 @@ class GameControl {
   }
   init() {
     document.addEventListener("keydown", this.handleKeydown.bind(this));
+    this.run();
   }
 
   /**
@@ -27,7 +28,57 @@ class GameControl {
     event.preventDefault();
     // console.log(event.key);
     this.direction = event.key;
+    // this.run();
+
     // console.log(this);
+  }
+
+  /**
+   *
+   * @param event
+   * ArrowUp ArrowRight ArrowDown ArrowLeft
+   * Up Right Down Left
+   * Up   -top
+   * Right +left
+   * Down  +top
+   * Left -left
+   *
+   */
+  run() {
+    let left = this.snake.X;
+    let top = this.snake.Y;
+
+    console.log(this.direction, left, top);
+
+    switch (this.direction) {
+      case "ArrowUp":
+      case "Up":
+        top -= 10;
+        break;
+      case "ArrowDown":
+      case "Down":
+        top += 10;
+        break;
+      case "ArrowRight":
+      case "Right":
+        left += 10;
+        break;
+      case "ArrowLeft":
+      case "Left":
+        left -= 10;
+        break;
+
+      default:
+        break;
+    }
+    console.log(left, top);
+
+    this.snake.X = left;
+    this.snake.Y = top;
+
+    setTimeout(() => {
+      this.run();
+    }, 300 - (this.scorePanel.level - 1) * 30);
   }
 }
 

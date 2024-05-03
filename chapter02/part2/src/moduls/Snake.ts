@@ -20,6 +20,7 @@ class Snake {
     this.head.style.left = v + "px";
   }
   public set Y(v: number) {
+    console.log("set Y", v);
     this.head.style.top = v + "px";
   }
 
