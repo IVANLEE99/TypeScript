@@ -13,6 +13,7 @@ module.exports = {
     filename: "bundle.js",
     environment: {
       arrowFunction: false,
+      const: false,
     },
   },
   //指定打包时候webpack 需要使用的模块
