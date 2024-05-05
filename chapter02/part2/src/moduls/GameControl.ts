@@ -6,6 +6,7 @@ class GameControl {
   snake: Snake;
   scorePanel: ScorePanel;
   direction: string = "";
+  isLive = true;
 
   constructor() {
     this.food = new Food();
@@ -15,6 +16,18 @@ class GameControl {
   }
   init() {
     document.addEventListener("keydown", this.handleKeydown.bind(this));
+    this.scorePanel.startEle.addEventListener(
+      "click",
+      this.handleStart.bind(this)
+    );
+    this.scorePanel.pauseEle.addEventListener(
+      "click",
+      this.handlePause.bind(this)
+    );
+    this.scorePanel.resetEle.addEventListener(
+      "click",
+      this.handleReset.bind(this)
+    );
     this.run();
   }
 
@@ -48,7 +61,7 @@ class GameControl {
     let left = this.snake.X;
     let top = this.snake.Y;
 
-    console.log(this.direction, left, top);
+    // console.log(this.direction, left, top);
 
     switch (this.direction) {
       case "ArrowUp":
@@ -71,14 +84,46 @@ class GameControl {
       default:
         break;
     }
-    console.log(left, top);
+    // console.log(left, top);
+    this.checkEat(left, top);
+    try {
+      this.snake.X = left;
+      this.snake.Y = top;
+    } catch (error) {
+      //   alert((<Error>error).message+'Game Over～_～');
+      alert((error as Error).message + "Game Over～_～");
+      this.isLive = false;
+    }
 
-    this.snake.X = left;
-    this.snake.Y = top;
-
-    setTimeout(() => {
-      this.run();
-    }, 300 - (this.scorePanel.level - 1) * 30);
+    this.isLive &&
+      setTimeout(() => {
+        this.run();
+      }, 300 - (this.scorePanel.level - 1) * 30);
+  }
+  checkEat(X: number, Y: number) {
+    if (X === this.food.X && Y === this.food.Y) {
+      console.log("吃到食物了");
+      this.food.change();
+      this.scorePanel.addScore();
+      this.snake.addBody();
+      //   this.snake.moveBody();
+    }
+  }
+  handleStart(e: MouseEvent) {
+    if (this.isLive) {
+      this.direction = "ArrowRight";
+    }
+    console.log("start");
+  }
+  handlePause(e: MouseEvent) {
+    if (this.isLive) {
+      this.direction = "";
+    }
+    console.log("pause");
+  }
+  handleReset(e: MouseEvent) {
+    console.log("reset");
+    window.location.reload();
   }
 }
 
